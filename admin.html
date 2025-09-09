@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Админка Бункеров</title>
+</head>
+<body>
+    <h1>Редактирование bunkers.json</h1>
+    <textarea id="jsonData" cols="100" rows="20"></textarea>
+    <br>
+    <button onclick="saveData()">Сохранить</button>
+
+    <script>
+        fetch('bunkers.json')
+            .then(r => r.text())
+            .then(data => document.getElementById('jsonData').value = data);
+
+        function saveData() {
+            const blob = new Blob([document.getElementById('jsonData').value], {type: "application/json"});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'bunkers.json';
+            a.click();
+            alert('Файл готов для замены на сервере');
+        }
+    </script>
+</body>
+</html>
